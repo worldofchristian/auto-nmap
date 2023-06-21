@@ -1,6 +1,6 @@
-import csv
 import json
 import nmap
+import pickle
 
 def scan_ip(ip_address):
     scanner = nmap.PortScanner()
@@ -8,10 +8,9 @@ def scan_ip(ip_address):
     return scanner[ip_address]
 
 def main():
-    # Open the CSV file and read the IP addresses
-    with open('ip_addresses.csv', 'r') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        ip_addresses = [row['IP Address'] for row in csv_reader]
+    # Load the IP addresses from the JSON file
+    with open('scannable-ip.json', 'rb') as json_file:
+        ip_addresses = pickle.load(json_file)
 
     scan_results = []
 
